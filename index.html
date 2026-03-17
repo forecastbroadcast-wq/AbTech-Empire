@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AbTech Empire And Online Jobs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f5f6fa;
+      color: #1e1e1e;
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      color: #2d9cdb;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #1e1e1e;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #2d9cdb;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(135deg, #2d9cdb, #56ccf2);
+      color: #fff;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin-bottom: 30px;
+    }
+
+    .hero .btn {
+      padding: 12px 30px;
+      margin: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-signup {
+      background-color: #27ae60;
+      color: #fff;
+    }
+
+    .btn-signup:hover {
+      background-color: #219150;
+    }
+
+    .btn-login {
+      background-color: #fff;
+      color: #27ae60;
+      border: 2px solid #27ae60;
+    }
+
+    .btn-login:hover {
+      background-color: #27ae60;
+      color: #fff;
+      border: 2px solid #27ae60;
+    }
+
+    .services {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .services h3 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 50px;
+      color: #2d9cdb;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .service-card {
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .service-card h4 {
+      margin: 20px 0 10px;
+      font-size: 1.2rem;
+      color: #27ae60;
+    }
+
+    .service-card p {
+      padding: 0 15px 20px;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #fff;
+      margin-top: 50px;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+    }
+
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>AbTech Empire</h1>
+    <nav>
+      <a href="signup.html">Sign Up</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>AbTech Empire And Online Jobs</h2>
+    <p>Welcome to AbTech Empire! Here you can find amazing design services and also browse or post online jobs. Whether you’re looking for creative solutions or talented freelancers, this is your one-stop platform for all things design and remote work.</p>
+    <div>
+      <a href="signup.html" class="btn btn-signup">Get Started</a>
+      <a href="login.html" class="btn btn-login">Login</a>
+    </div>
+  </section>
+
+  <!-- Services & Jobs Preview Section -->
+  <section class="services">
+    <h3>Our Services & Jobs</h3>
+    <div class="service-grid">
+      <div class="service-card">
+        <img src="assets/image1.jpg" alt="Design Service">
+        <h4>Graphic Design</h4>
+        <p>High-quality custom designs for logos, banners, and social media posts directly from AbeloDesigns.</p>
+      </div>
+      <div class="service-card">
+        <img src="assets/image2.jpg" alt="Web Design">
+        <h4>Web Design</h4>
+        <p>Create beautiful and responsive websites to showcase your business or personal brand.</p>
+      </div>
+      <div class="service-card">
+        <img src="assets/image3.jpg" alt="Job Posting">
+        <h4>Freelance Jobs</h4>
+        <p>Post online jobs and connect with talented freelancers who can complete your tasks efficiently.</p>
+      </div>
+      <div class="service-card">
+        <img src="assets/image4.jpg" alt="Creative Services">
+        <h4>Creative Services</h4>
+        <p>From content writing to digital marketing, find creative solutions to grow your projects.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026AbTech Empire. All rights reserved.
+  </footer>
+
+</body>
+</html>

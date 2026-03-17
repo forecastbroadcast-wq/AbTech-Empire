@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 320px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #14a800;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #14a800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+button:hover {
+    background: #108a00;
+}
+
+button.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+button.loading .spinner {
+    display: block;
+}
+
+button.loading span {
+    visibility: hidden;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+#message {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Login link */
+.login-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #14a800;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Create Account</h2>
+
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+
+    <button id="signupBtn" onclick="signup()">
+        <span>Sign Up</span>
+        <div class="spinner"></div>
+    </button>
+
+    <p id="message"></p>
+
+    <div class="login-link">
+        Already have an account? <a href="login.html">Login</a>
+    </div>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzdfC7N7wUKDU1GkT1qZsN2qeWuvPw0IoMWnj1RpUeygTtu-WyK3rveMQffarJjrbtN/exec";
+
+function signup() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const msg = document.getElementById("message");
+    const btn = document.getElementById("signupBtn");
+
+    msg.innerText = "";
+
+    // ✅ Strong Password Validation
+    const strongPassword = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W]).{6,}$/;
+
+    if (!name || !email || !password) {
+        msg.style.color = "red";
+        msg.innerText = "All fields are required";
+        return;
+    }
+
+    if (!strongPassword.test(password)) {
+        msg.style.color = "red";
+        msg.innerText = "Password must have 1 uppercase, 1 number, 1 symbol";
+        return;
+    }
+
+    // ✅ Show loading
+    btn.classList.add("loading");
+
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+            action: "signup",
+            name,
+            email,
+            password
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        msg.innerText = data.message;
+
+        if (data.status === "success") {
+            msg.style.color = "green";
+
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1500);
+
+        } else {
+            msg.style.color = "red";
+        }
+    })
+    .catch(err => {
+        msg.innerText = "Error connecting to server";
+        msg.style.color = "red";
+    })
+    .finally(() => {
+        btn.classList.remove("loading");
+    });
+}
+</script>
+
+</body>
+</html>

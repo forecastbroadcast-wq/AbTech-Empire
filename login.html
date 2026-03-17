@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
-
 <style>
 body {
     font-family: Arial;
@@ -14,7 +13,6 @@ body {
     align-items: center;
     height: 100vh;
 }
-
 .container {
     background: white;
     padding: 30px;
@@ -22,12 +20,10 @@ body {
     width: 320px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
-
 h2 {
     text-align: center;
     color: #14a800;
 }
-
 input {
     width: 100%;
     padding: 10px;
@@ -35,7 +31,6 @@ input {
     border: 1px solid #ddd;
     border-radius: 5px;
 }
-
 button {
     width: 100%;
     padding: 10px;
@@ -45,52 +40,41 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
-
 button:hover {
     background: #108a00;
 }
-
 #message {
     text-align: center;
     margin-top: 10px;
 }
-
 .signup-link {
     text-align: center;
     margin-top: 15px;
     font-size: 14px;
 }
-
 .signup-link a {
     color: #14a800;
     text-decoration: none;
 }
-
 .signup-link a:hover {
     text-decoration: underline;
 }
 </style>
 </head>
-
 <body>
-
 <div class="container">
     <h2>Login</h2>
-
     <input type="email" id="email" placeholder="Email">
     <input type="password" id="password" placeholder="Password">
-
     <button onclick="login()">Login</button>
-
     <p id="message"></p>
-
     <div class="signup-link">
         Don't have an account? <a href="signup.html">Sign Up</a>
     </div>
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbwhp7cNPCwi827day8Zba6o2NT6DPtam6IKzJUTKZUKKoBgZ1QhwBARrwF7KKgWFXt5/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyFLFmLXLLuSBy9jNkhPgjp0uE8xXO6sS9Dm_nUd4mVKmrRCCGknihnKWhjBqilwtya/exec";
 
 function login() {
     const email = document.getElementById("email").value.trim();
@@ -98,6 +82,7 @@ function login() {
     const msg = document.getElementById("message");
 
     msg.innerText = "";
+    msg.style.color = "black";
 
     if (!email || !password) {
         msg.style.color = "red";
@@ -105,42 +90,36 @@ function login() {
         return;
     }
 
+    const formData = new FormData();
+    formData.append("action", "login");
+    formData.append("email", email);
+    formData.append("password", password);
+
     fetch(API_URL, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            action: "login",
-            email,
-            password
-        })
+        body: formData
     })
-    .then(res => res.json())
+    .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+    })
     .then(data => {
         msg.innerText = data.message;
+        msg.style.color = data.status === "success" ? "green" : "red";
 
         if (data.status === "success") {
-            msg.style.color = "green";
-
-            // Save user
             localStorage.setItem("userName", data.name);
-
-            // Redirect
             setTimeout(() => {
                 window.location.href = "dashboard.html";
             }, 1000);
-
-        } else {
-            msg.style.color = "red";
         }
     })
     .catch(err => {
-        msg.innerText = "Server error";
+        console.error("Login error:", err);
+        msg.innerText = "Connection problem – check internet or script deployment";
         msg.style.color = "red";
     });
 }
 </script>
-
 </body>
 </html>

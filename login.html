@@ -56,8 +56,9 @@ button:hover { background: #108a00; }
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbyFLFmLXLLuSBy9jNkhPgjp0uE8xXO6sS9Dm_nUd4mVKmrRCCGknihnKWhjBqilwtya/exec";
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwWkiIeC3O8zxbayfSvB4IH52PdikskVNGlzG3HIO2s0BXXfTuIQXOiRfi-LnqYE3cX/exec";
 
-// Original login
+// Original login (unchanged)
 function login() {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
@@ -88,23 +89,19 @@ function login() {
     });
 }
 
-// Google login posting to new sheet with no-cors
+// Updated Google login to post to new sheet
 function handleGoogleLogin(response) {
-    console.log("GOOGLE WORKING:", response);
     const data = parseJwt(response.credential);
 
-    const formData = new FormData();
-    formData.append("action", "googleLogin");
-    formData.append("name", data.name);
-    formData.append("email", data.email);
+    const payload = `action=googleLogin&name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`;
 
-    fetch("https://script.google.com/macros/s/AKfycbwWkiIeC3O8zxbayfSvB4IH52PdikskVNGlzG3HIO2s0BXXfTuIQXOiRfi-LnqYE3cX/exec", {
+    fetch(GOOGLE_SHEET_URL, {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: payload,
         mode: "no-cors"
     });
 
-    // Redirect immediately
     localStorage.setItem("userName", data.name);
     window.location.href = "dashboard.html";
 }

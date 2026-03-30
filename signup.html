@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sign Up</title>
+
+<!-- Google Sign-In -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <style>
 body {
     font-family: Arial;
@@ -87,19 +91,39 @@ button.loading span {
 .login-link a:hover {
     text-decoration: underline;
 }
+
+/* Google button spacing */
+.g_id_signin {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
 </style>
 </head>
+
 <body>
 <div class="container">
     <h2>Create Account</h2>
+
     <input type="text" id="name" placeholder="Full Name">
     <input type="email" id="email" placeholder="Email">
     <input type="password" id="password" placeholder="Password">
+
     <button id="signupBtn" onclick="signup()">
         <span>Sign Up</span>
         <div class="spinner"></div>
     </button>
+
+    <!-- Google Sign Up -->
+    <div id="g_id_onload"
+         data-client_id="199001016921-cs3jr034oi9e3spb5klvulsgbgpns0nf.apps.googleusercontent.com"
+         data-callback="handleGoogleLogin">
+    </div>
+
+    <div class="g_id_signin"></div>
+
     <p id="message"></p>
+
     <div class="login-link">
         Already have an account? <a href="login.html">Login</a>
     </div>
@@ -117,20 +141,20 @@ function signup() {
 
     msg.innerText = "";
 
-    // Strong Password Validation
     const strongPassword = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W]).{6,}$/;
+
     if (!name || !email || !password) {
         msg.style.color = "red";
         msg.innerText = "All fields are required";
         return;
     }
+
     if (!strongPassword.test(password)) {
         msg.style.color = "red";
         msg.innerText = "Password must have 1 uppercase, 1 number, 1 symbol";
         return;
     }
 
-    // Show loading
     btn.classList.add("loading");
 
     const formData = new FormData();
@@ -155,14 +179,44 @@ function signup() {
             msg.style.color = "red";
         }
     })
-    .catch(err => {
-        console.error(err);
+    .catch(() => {
         msg.innerText = "Error connecting to server";
         msg.style.color = "red";
     })
     .finally(() => {
         btn.classList.remove("loading");
     });
+}
+
+/* Google Login */
+function handleGoogleLogin(response) {
+    const data = parseJwt(response.credential);
+
+    const formData = new FormData();
+    formData.append("action", "googleLogin");
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+
+    fetch(API_URL, {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            localStorage.setItem("userName", data.name);
+            window.location.href = "dashboard.html";
+        }
+    });
+}
+
+function parseJwt(token) {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    let jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
+        '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+    ).join(''));
+    return JSON.parse(jsonPayload);
 }
 </script>
 </body>

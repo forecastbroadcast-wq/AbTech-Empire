@@ -118,7 +118,7 @@ button.loading span {
     <div id="g_id_onload"
          data-client_id="199001016921-cs3jr034oi9e3spb5klvulsgbgpns0nf.apps.googleusercontent.com"
          data-callback="handleGoogleLogin"
-        data-auto_prompt="false">
+         data-auto_prompt="false">
     </div>
 
    <div class="g_id_signin"
@@ -198,6 +198,8 @@ function signup() {
 
 /* Google Login */
 function handleGoogleLogin(response) {
+    console.log("GOOGLE WORKING:", response); // for debugging
+
     const data = parseJwt(response.credential);
 
     const formData = new FormData();
@@ -226,10 +228,6 @@ function parseJwt(token) {
     ).join(''));
     return JSON.parse(jsonPayload);
 }
-    function handleGoogleLogin(response) {
-    console.log("GOOGLE WORKING:", response); // 👈 ADD THIS
-
-    const data = parseJwt(response.credential);
 </script>
 </body>
 </html>

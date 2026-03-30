@@ -146,6 +146,8 @@ function login() {
 
 /* Google Login */
 function handleGoogleLogin(response) {
+    console.log("GOOGLE WORKING:", response); // for debugging
+
     const data = parseJwt(response.credential);
 
     const formData = new FormData();
@@ -174,10 +176,6 @@ function parseJwt(token) {
     ).join(''));
     return JSON.parse(jsonPayload);
 }
-    function handleGoogleLogin(response) {
-    console.log("GOOGLE WORKING:", response); // 👈 ADD THIS
-
-    const data = parseJwt(response.credential);
 </script>
 </body>
 </html>

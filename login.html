@@ -34,11 +34,29 @@ button:hover { background: #108a00; }
     <button onclick="login()">Login</button>
 
     <!-- Google Login with redirect -->
-    <div id="g_id_onload"
-         data-client_id="199001016921-cs3jr034oi9e3spb5klvulsgbgpns0nf.apps.googleusercontent.com"
-         data-login_uri="https://forecastbroadcast-wq.github.io/AbTech-Empire/dashboard.html"
-         data-auto_prompt="false">
-    </div>
+ /* Google Login */
+function handleGoogleLogin(response) {
+    console.log("GOOGLE WORKING:", response);
+    const data = parseJwt(response.credential);
+
+    // Send only to the new Google sheet
+    const formData = new FormData();
+    formData.append("action", "googleLogin");
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+
+    fetch("https://script.google.com/macros/s/AKfycbwWkiIeC3O8zxbayfSvB4IH52PdikskVNGlzG3HIO2s0BXXfTuIQXOiRfi-LnqYE3cX/exec", { // <-- new web app URL
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            localStorage.setItem("userName", data.name);
+            window.location.href = "dashboard.html";
+        }
+    });
+}
 
     <div class="g_id_signin"
          data-type="standard"

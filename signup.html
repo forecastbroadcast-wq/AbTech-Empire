@@ -9,95 +9,23 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <style>
-body {
-    font-family: Arial;
-    background: #f7f7f7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-.container {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 320px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-}
-h2 {
-    text-align: center;
-    color: #14a800;
-}
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-button {
-    width: 100%;
-    padding: 10px;
-    background: #14a800;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    position: relative;
-}
-button:hover {
-    background: #108a00;
-}
-button.loading {
-    pointer-events: none;
-    opacity: 0.7;
-}
-.spinner {
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid white;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    animation: spin 1s linear infinite;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
-}
-button.loading .spinner {
-    display: block;
-}
-button.loading span {
-    visibility: hidden;
-}
-@keyframes spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-#message {
-    text-align: center;
-    margin-top: 10px;
-}
-.login-link {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 14px;
-}
-.login-link a {
-    color: #14a800;
-    text-decoration: none;
-}
-.login-link a:hover {
-    text-decoration: underline;
-}
-
-/* Google button spacing */
-.g_id_signin {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-}
+/* --- Keep all your styles exactly the same --- */
+body { font-family: Arial; background: #f7f7f7; display: flex; justify-content: center; align-items: center; height: 100vh; }
+.container { background: white; padding: 30px; border-radius: 10px; width: 320px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+h2 { text-align: center; color: #14a800; }
+input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px; }
+button { width: 100%; padding: 10px; background: #14a800; color: white; border: none; border-radius: 5px; cursor: pointer; position: relative; }
+button:hover { background: #108a00; }
+button.loading { pointer-events: none; opacity: 0.7; }
+.spinner { border: 3px solid #f3f3f3; border-top: 3px solid white; border-radius: 50%; width: 18px; height: 18px; animation: spin 1s linear infinite; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none; }
+button.loading .spinner { display: block; }
+button.loading span { visibility: hidden; }
+@keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+#message { text-align: center; margin-top: 10px; }
+.login-link { text-align: center; margin-top: 15px; font-size: 14px; }
+.login-link a { color: #14a800; text-decoration: none; }
+.login-link a:hover { text-decoration: underline; }
+.g_id_signin { margin-top: 15px; display: flex; justify-content: center; }
 </style>
 </head>
 
@@ -114,21 +42,21 @@ button.loading span {
         <div class="spinner"></div>
     </button>
 
-    <!-- Google Sign Up -->
+    <!-- Google Sign Up with redirect -->
     <div id="g_id_onload"
          data-client_id="199001016921-cs3jr034oi9e3spb5klvulsgbgpns0nf.apps.googleusercontent.com"
-         data-callback="handleGoogleLogin"
+         data-login_uri="https://forecastbroadcast-wq.github.io/AbTech-Empire/dashboard.html"
          data-auto_prompt="false">
     </div>
 
-   <div class="g_id_signin"
-     data-type="standard"
-     data-size="large"
-     data-theme="outline"
-     data-text="continue_with"
-     data-shape="rectangular"
-     data-logo_alignment="left">
-</div>
+    <div class="g_id_signin"
+         data-type="standard"
+         data-size="large"
+         data-theme="outline"
+         data-text="continue_with"
+         data-shape="rectangular"
+         data-logo_alignment="left">
+    </div>
 
     <p id="message"></p>
 
@@ -146,7 +74,6 @@ function signup() {
     const password = document.getElementById("password").value.trim();
     const msg = document.getElementById("message");
     const btn = document.getElementById("signupBtn");
-
     msg.innerText = "";
 
     const strongPassword = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W]).{6,}$/;
@@ -171,35 +98,20 @@ function signup() {
     formData.append("email", email);
     formData.append("password", password);
 
-    fetch(API_URL, {
-        method: "POST",
-        body: formData
-    })
+    fetch(API_URL, { method: "POST", body: formData })
     .then(res => res.json())
     .then(data => {
         msg.innerText = data.message;
-        if (data.status === "success") {
-            msg.style.color = "green";
-            setTimeout(() => {
-                window.location.href = "login.html";
-            }, 1500);
-        } else {
-            msg.style.color = "red";
-        }
+        msg.style.color = data.status === "success" ? "green" : "red";
+        if (data.status === "success") setTimeout(() => window.location.href="login.html", 1500);
     })
-    .catch(() => {
-        msg.innerText = "Error connecting to server";
-        msg.style.color = "red";
-    })
-    .finally(() => {
-        btn.classList.remove("loading");
-    });
+    .catch(() => { msg.innerText = "Error connecting to server"; msg.style.color="red"; })
+    .finally(() => btn.classList.remove("loading"));
 }
 
 /* Google Login */
 function handleGoogleLogin(response) {
-    console.log("GOOGLE WORKING:", response); // for debugging
-
+    console.log("GOOGLE WORKING:", response);
     const data = parseJwt(response.credential);
 
     const formData = new FormData();
@@ -207,10 +119,7 @@ function handleGoogleLogin(response) {
     formData.append("name", data.name);
     formData.append("email", data.email);
 
-    fetch(API_URL, {
-        method: "POST",
-        body: formData
-    })
+    fetch(API_URL, { method: "POST", body: formData })
     .then(res => res.json())
     .then(data => {
         if (data.status === "success") {

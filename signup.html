@@ -226,6 +226,10 @@ function parseJwt(token) {
     ).join(''));
     return JSON.parse(jsonPayload);
 }
+    function handleGoogleLogin(response) {
+    console.log("GOOGLE WORKING:", response); // 👈 ADD THIS
+
+    const data = parseJwt(response.credential);
 </script>
 </body>
 </html>

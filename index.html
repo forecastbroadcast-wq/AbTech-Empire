@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AbTech Empire And Online Jobs</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     * {
       margin: 0;
@@ -136,10 +137,13 @@
       transform: translateY(-5px);
     }
 
+    /* ✅ FIXED IMAGE QUALITY */
     .service-card img {
       width: 100%;
-      height: 180px;
-      object-fit: cover;
+      height: auto;
+      max-height: 350px;
+      object-fit: contain;
+      cursor: pointer;
     }
 
     .service-card h4 {
@@ -173,6 +177,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -191,6 +196,7 @@
       <a href="login.html" class="btn btn-login">Login</a>
     </div>
   </section>
+
   <!-- Services & Jobs Preview Section -->
   <section class="services">
     <h3>Our Services & Jobs</h3>
@@ -200,16 +206,19 @@
         <h4>Graphic Design</h4>
         <p>High-quality custom designs for logos, banners, and social media posts directly from AbeloDesigns.</p>
       </div>
+
       <div class="service-card">
         <img src="assets/image2.jpg" alt="Web Design">
         <h4>Web Design</h4>
         <p>Create beautiful and responsive websites to showcase your business or personal brand.</p>
       </div>
+
       <div class="service-card">
         <img src="assets/image3.jpg" alt="Job Posting">
         <h4>Freelance Jobs</h4>
         <p>Post online jobs and connect with talented freelancers who can complete your tasks efficiently.</p>
       </div>
+
       <div class="service-card">
         <img src="assets/image4.jpg" alt="Creative Services">
         <h4>Creative Services</h4>
@@ -217,37 +226,42 @@
       </div>
     </div>
   </section>
+
   <!-- Portfolio & Proof Section -->
-<section class="services">
-  <h3>Our Work & Client Proof</h3>
+  <section class="services">
+    <h3>Our Work & Client Proof</h3>
 
-  <div class="service-grid">
+    <div class="service-grid">
 
-    <!-- Poster 1 -->
-    <div class="service-card">
-      <img src="https://i.ibb.co/3yJF7f0g/Whats-App-Image-2025-09-29-at-22-52-6.jpg" alt="Poster Design 1">
-      <h4>Made A Design For Pumsya Butter product</h4>
-      <p>It was nice and fantastic plus attractive to the custormers. </p>
+      <div class="service-card">
+        <a href="https://i.ibb.co/3yJF7f0g/Whats-App-Image-2025-09-29-at-22-52-6.jpg" download target="_blank">
+          <img src="https://i.ibb.co/3yJF7f0g/Whats-App-Image-2025-09-29-at-22-52-6.jpg" alt="Poster Design 1">
+        </a>
+        <h4>Made A Design For Pumsya Butter product</h4>
+        <p>It was nice and fantastic plus attractive to the customers.</p>
+      </div>
+
+      <div class="service-card">
+        <a href="https://i.ibb.co/wNJ7M45W/Whats-App-Image-2025-09-29-at-22-52-7.jpg" download target="_blank">
+          <img src="https://i.ibb.co/wNJ7M45W/Whats-App-Image-2025-09-29-at-22-52-7.jpg" alt="Poster Design 2">
+        </a>
+        <h4>Emmy's DreadLocks Design</h4>
+        <p>Was made for the hair product to suit the customers and attract them.</p>
+      </div>
+
+      <div class="service-card">
+        <a href="https://i.ibb.co/pBZ86kPV/Whats-App-Image-2025-09-29-at-22-52-8.jpg" download target="_blank">
+          <img src="https://i.ibb.co/pBZ86kPV/Whats-App-Image-2025-09-29-at-22-52-8.jpg" alt="Poster Design 3">
+        </a>
+        <h4>Pure Tangawizi Product Design</h4>
+        <p>This was made for a presentation at a showground in Kisii county.</p>
+      </div>
+
     </div>
-
-    <!-- Poster 2 -->
-    <div class="service-card">
-      <img src="https://i.ibb.co/wNJ7M45W/Whats-App-Image-2025-09-29-at-22-52-7.jpg" alt="Poster Design 2">
-      <h4>Emmy's DreadLocks Design</h4>
-      <p>Was Made For the Hair Product to suit the custormers and attract them. </p>
-    </div>
-
-    <!-- Poster 3 -->
-    <div class="service-card">
-      <img src="https://i.ibb.co/pBZ86kPV/Whats-App-Image-2025-09-29-at-22-52-8.jpg" alt="Poster Design 3">
-      <h4>Pure Tangawizi Product Design</h4>
-      <p>This was made for a coming presentation that was done at a showground in Kisii county</p>
-    </div>
-  </div>
-</section>
+  </section>
 
   <footer>
-    &copy; 2026AbTech Empire. All rights reserved.
+    &copy; 2026 AbTech Empire. All rights reserved.
   </footer>
 
 </body>

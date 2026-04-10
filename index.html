@@ -121,29 +121,49 @@
     .service-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
+      gap: 35px; /* ✅ FIXED spacing */
+      padding: 10px;
     }
 
     .service-card {
       background-color: #fff;
-      border-radius: 10px;
+      border-radius: 15px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
       text-align: center;
       transition: transform 0.3s;
+      position: relative;
     }
 
     .service-card:hover {
       transform: translateY(-5px);
     }
 
-    /* ✅ FIXED IMAGE QUALITY */
+    /* 🌈 COLORFUL BORDER EFFECT */
+    .service-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 15px;
+      padding: 2px;
+      background: linear-gradient(135deg, #2d9cdb, #27ae60, #f39c12);
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* ✅ FIXED IMAGE QUALITY + SPACE */
     .service-card img {
       width: 100%;
       height: auto;
       max-height: 350px;
       object-fit: contain;
       cursor: pointer;
+      padding: 10px;
+      background: #f9f9f9;
     }
 
     .service-card h4 {
@@ -201,6 +221,7 @@
   <section class="services">
     <h3>Our Services & Jobs</h3>
     <div class="service-grid">
+
       <div class="service-card">
         <img src="assets/image1.jpg" alt="Design Service">
         <h4>Graphic Design</h4>
@@ -224,6 +245,7 @@
         <h4>Creative Services</h4>
         <p>From content writing to digital marketing, find creative solutions to grow your projects.</p>
       </div>
+
     </div>
   </section>
 
@@ -235,7 +257,7 @@
 
       <div class="service-card">
         <a href="https://i.ibb.co/3yJF7f0g/Whats-App-Image-2025-09-29-at-22-52-6.jpg" download target="_blank">
-          <img src="https://i.ibb.co/3yJF7f0g/Whats-App-Image-2025-09-29-at-22-52-6.jpg" alt="Poster Design 1">
+          <img src="https://i.ibb.co/3yJF7f0g/Whats-App-Image-2025-09-29-at-22-52-6.jpg">
         </a>
         <h4>Made A Design For Pumsya Butter product</h4>
         <p>It was nice and fantastic plus attractive to the customers.</p>
@@ -243,7 +265,7 @@
 
       <div class="service-card">
         <a href="https://i.ibb.co/wNJ7M45W/Whats-App-Image-2025-09-29-at-22-52-7.jpg" download target="_blank">
-          <img src="https://i.ibb.co/wNJ7M45W/Whats-App-Image-2025-09-29-at-22-52-7.jpg" alt="Poster Design 2">
+          <img src="https://i.ibb.co/wNJ7M45W/Whats-App-Image-2025-09-29-at-22-52-7.jpg">
         </a>
         <h4>Emmy's DreadLocks Design</h4>
         <p>Was made for the hair product to suit the customers and attract them.</p>
@@ -251,7 +273,7 @@
 
       <div class="service-card">
         <a href="https://i.ibb.co/pBZ86kPV/Whats-App-Image-2025-09-29-at-22-52-8.jpg" download target="_blank">
-          <img src="https://i.ibb.co/pBZ86kPV/Whats-App-Image-2025-09-29-at-22-52-8.jpg" alt="Poster Design 3">
+          <img src="https://i.ibb.co/pBZ86kPV/Whats-App-Image-2025-09-29-at-22-52-8.jpg">
         </a>
         <h4>Pure Tangawizi Product Design</h4>
         <p>This was made for a presentation at a showground in Kisii county.</p>
